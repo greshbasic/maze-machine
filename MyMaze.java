@@ -1,3 +1,6 @@
+// Name: Gresham Basic
+// x500: basic009
+
 import java.util.Random;
 import java.util.Scanner;
 
@@ -21,7 +24,6 @@ public class MyMaze{
         }
     }
 
-    /* TODO: Create a new maze using the algorithm found in the writeup. */
     public static MyMaze makeMaze(){
         System.out.println("Please input how tall you'd like the maze to be: ");
         Scanner numRowsScanner = new Scanner(System.in);
@@ -32,6 +34,8 @@ public class MyMaze{
         
         // if a valid num of rows and cols
         if(numRows >= 5 && numRows <= 20 && numCols >= 5 && numCols <= 20){
+            numRowsScanner.close();
+            numColsScanner.close();
 
             // randomly deciding the end and start rows of this maze
             Random rand = new Random();
@@ -48,7 +52,6 @@ public class MyMaze{
             currentTop[1] = 0;
             myMaze.maze[currentTop[0]][currentTop[1]].setVisited(true);
             stack.push(currentTop);
-            int[] adding = new int[2];
             while(stack.isEmpty() == false){
                 currentTop = stack.top(); 
                 String randomMove = myMaze.pickVisitable(currentTop, numRows, numCols);
@@ -96,12 +99,12 @@ public class MyMaze{
             }
             return myMaze;
         }
-        
-        // if invalid input returns null, no error handling for the problems this later causes
+        // if invalid input returns null
+        numRowsScanner.close();
+        numColsScanner.close();
         return null;
     }
            
-    /* TODO: Print a representation of the maze to the terminal */
     public void printMaze() {
         // prints the maze by first setting up the top boundary then uses printRow() helper method for each row
         String maze = "|";
@@ -166,8 +169,6 @@ public class MyMaze{
         return rows;
     }
 
-    /* TODO: Solve the maze using the algorithm found in the writeup. */
-
     public void solveMaze() {
         QGen<int[]> queue = new Q1Gen<int[]>();
         int[] adding = {startRow, 0};
@@ -207,8 +208,6 @@ public class MyMaze{
 
             }
         }
-
-
 
     }
 
@@ -262,7 +261,7 @@ public class MyMaze{
 
         return choice;
     }
-   public static void main(String[] args){
+    public static void main(String[] args){
         // try catch block related to an invalid input and the NPE that one would cause
         try {
             MyMaze maze = makeMaze();
