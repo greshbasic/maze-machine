@@ -1,10 +1,8 @@
-// Names:
-// x500s:
+// Name: Gresham Basic
+// x500: basic009
 
-import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
-import java.util.Stack;
 
 public class MyMaze{
     Cell[][] maze;
@@ -93,6 +91,7 @@ public class MyMaze{
                 }
 
             }
+            // returning all cells back to their original unvisited state
             for(int i = 0; i < numRows; i++){
                 for(int j = 0; j < numCols; j++){
                    myMaze.maze[i][j].setVisited(false);
@@ -100,13 +99,14 @@ public class MyMaze{
             }
             return myMaze;
         }
+        
+        // if invalid input returns null, no error handling for the problems this later causes
         return null;
     }
            
     /* TODO: Print a representation of the maze to the terminal */
     public void printMaze() {
-        // two strings: current row, and the border row below it, so if no border add " " to border row string, else add "-"
-        // *** consider doing a printLin() method ala the one you did for chess project :D ***
+        // prints the maze by first setting up the top boundary then uses printRow() helper method for each row
         String maze = "|";
 
         for(int i = 0; i < numCols; i++){
@@ -118,28 +118,24 @@ public class MyMaze{
             System.out.println(a[0]);
             System.out.println(a[1]);
         }
-        //     a = printRow()
-        //     System.out.println(a[0])
-        //     System.out.println(a[1])
-        // if this is start row, don't put left border there |
-        // loop through a row at a time
-        //     if(maze[i][j].getVisited() == true){ add a " * "}
-        //         if(maze[i][j].getBottom == true){ print a bottom border for it}
-        //         if (maze[i][j].getRight == true){ print a right border for it}
-        //         gg go next
     }
 
     public String[] printRow(int rowNumber){
+        // splits each row into two "sub-rows," cellRow being where the *'s and left and right walls will
+        // be seen, and wallRow where only the top and bottom walls will be seen
         int cols = this.numCols;
         String[] rows = new String[2];
         String cellRow = "";
         String wallRow = "|";
+
+        // leaving the starting cell's left wall open
         if(rowNumber != this.startRow){
             cellRow += "| ";
         } else {
             cellRow += "  ";
         }
 
+        // looping through and adding *'s and walls to respective arrays
         for(int i = 0; i < cols; i++){
             if(this.maze[rowNumber][i].getVisited()){
                 cellRow += "* ";
@@ -161,9 +157,6 @@ public class MyMaze{
                 wallRow += "   |";
             }
         }
-        if(rowNumber != this.endRow){
-            //cellRow += "|";
-        }
         rows[0] = cellRow;
         rows[1] = wallRow;
         if(rowNumber == numRows - 1){
@@ -178,11 +171,6 @@ public class MyMaze{
 
     /* TODO: Solve the maze using the algorithm found in the writeup. */
 
-
-    /*
-     I had the same issue. When you are checking for available neighbor cells, are you checking 
-     if there is a wall between the current cell and the cell you are trying to visit?
-     */
     public void solveMaze() {
         QGen<int[]> queue = new Q1Gen<int[]>();
         int[] adding = {startRow, 0};
@@ -192,6 +180,11 @@ public class MyMaze{
             this.maze[adding[0]][adding[1]].setVisited(true);
             int currentRow = adding[0];
             int currentCol = adding[1];
+            
+            // if location that is about to be added to queue is actually the end,
+            // it breaks, else it continues and checks all possible moves.
+            // the possibility of a move is dependant on it being located next to the current cell,
+            // it being unvisited, and there being no wall between the current cell and the neighbor cell
             if(adding[0] == endRow && adding[1] == numCols - 1){
                 break;
             } else {
@@ -223,45 +216,62 @@ public class MyMaze{
     }
 
     public String pickVisitable(int[] a, int numRows, int numCols){
+        // this method is what allows for a random selection of VALID moves
+        // by adding letters representing directions to an array and randomly choosing
+        // for that array after nulls are removed
+
         int currentRow = a[0];
         int currentCol = a[1];
         int elementCount = 0;
-        ArrayList<String> possibleMoves = new ArrayList<>();
+        String[] possibleMoves = new String[4];
         // checking left
         if(currentCol - 1 >= 0 && currentCol < numCols && this.maze[currentRow][currentCol - 1].getVisited() == false){
-            possibleMoves.add("L");
+            possibleMoves[0] = "L";
             elementCount += 1;
         }
         // checking right
         if(currentCol >= 0 && currentCol + 1 < numCols && this.maze[currentRow][currentCol + 1].getVisited() == false){
-            possibleMoves.add("R");
+            possibleMoves[1] = "R";
             elementCount += 1;
         }
         // checking Above
         if(currentRow - 1 >= 0 && currentRow < numRows && this.maze[currentRow -1][currentCol].getVisited() == false){
-            possibleMoves.add("A");
+            possibleMoves[2] = "A";
             elementCount += 1;
         }
         // checking Below
         if(currentRow >= 0 && currentRow + 1 < numRows && this.maze[currentRow+1][currentCol].getVisited() == false){
-            possibleMoves.add("B");
+            possibleMoves[3] = "B";
             elementCount += 1;
         }
 
+        // elementCount being 0 means no possible moves, no need to continue
         if(elementCount == 0){
             return null;
         }
+        String[] noNulls = new String[elementCount];
+        int tracker = 0;
+        
+        // removal of nulls
+        for(int i = 0; i < 4; i++){
+            if(possibleMoves[i] != null){
+                noNulls[tracker] = possibleMoves[i];
+                tracker += 1;
+            }
+        }
+
         int pos = new Random().nextInt(elementCount);
-        String choice = possibleMoves.get(pos);
-      
+        String choice = noNulls[pos];
+
         return choice;
     }
     public static void main(String[] args){
-        MyMaze hehe = makeMaze();
-        hehe.printMaze();
-        System.out.println("\n-------------------------\n");
-        hehe.solveMaze();
-        hehe.printMaze();
-
+        MyMaze maze = makeMaze();
+        maze.printMaze();
+        // dividing for sake of readablity for grader :)
+        System.out.println("\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+        maze.solveMaze();
+        maze.printMaze();
     }
 }
+
