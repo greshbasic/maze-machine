@@ -262,7 +262,8 @@ public class MyMaze{
 
         return choice;
     }
-    public static void main(String[] args){
+   public static void main(String[] args){
+        // try catch block related to an invalid input and the NPE that one would cause
         try {
             MyMaze maze = makeMaze();
             maze.printMaze();
@@ -270,8 +271,8 @@ public class MyMaze{
             System.out.println("\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
             maze.solveMaze();
             maze.printMaze();
-        } catch (NullPointerException npe){
-            System.out.println("Your dimensions need to be integers that are ≥ 5 but ≤ 20");
+        } catch (Exception e){
+            System.out.println("INVALID - Your dimensions need to be integers that are ≥ 5 but ≤ 20");
         }
     }
 }
