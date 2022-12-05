@@ -260,15 +260,20 @@ public class MyMaze{
     }
     public static void main(String[] args){
         // try catch block related to an invalid input and the NPE that one would cause
-        try {
-            MyMaze maze = makeMaze();
-            maze.printMaze();
-            System.out.println("\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
-            maze.solveMaze();
-            maze.printMaze();
-        } catch (Exception e){
-            System.out.println("INVALID - Your dimensions need to be integers that are ≥ 5 but ≤ 20");
+        boolean valid = false;
+        while(valid == false){
+            try {
+                MyMaze maze = makeMaze();
+                valid = true;
+                maze.printMaze();
+                System.out.println("\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+                maze.solveMaze();
+                maze.printMaze();
+            } catch (Exception e){
+                System.out.println("INVALID - Your dimensions need to be integers that are ≥ 5 but ≤ 20");
+            }
         }
     }
+}
 }
 
