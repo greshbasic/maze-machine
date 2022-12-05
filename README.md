@@ -5,8 +5,6 @@
   - compile every file: `javac <file.java>`
   - `java MyMaze`
 
-Notice: The only code that I had created was the MyMaze.java file, everything else was provided to me.
-
 Example:
 ```
 greshbasic@Nebula:~/Desktop/ComSci/csci1933/projects/project4$ java MyMaze
@@ -41,3 +39,4 @@ Please input how wide you'd like the maze to be:
 | *   *   *   * |                       | 
 |---|---|---|---|---|---|---|---|---|---|
 ```
+Notice: The only code that I had created was the MyMaze.java file, everything else was provided to me.
