@@ -7,6 +7,12 @@ Notice: The only code that I had created was the MyMaze.java file, everything el
 
 Example: 
 
+greshbasic@Nebula:~/Desktop/ComSci/csci1933/projects/project4$ java MyMaze
+Please input how tall you'd like the maze to be: 
+5 
+Please input how wide you'd like the maze to be: 
+10
+
 |---|---|---|---|---|---|---|---|---|---|
 |   |                   |       |       | 
 |   |   |---|   |---|   |   |   |   |   |
