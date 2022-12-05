@@ -263,11 +263,16 @@ public class MyMaze{
         return choice;
     }
     public static void main(String[] args){
-        MyMaze maze = makeMaze();
-        maze.printMaze();
-        System.out.println("\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
-        maze.solveMaze();
-        maze.printMaze();
+        try {
+            MyMaze maze = makeMaze();
+            maze.printMaze();
+            // dividing for sake of readablity for grader :)
+            System.out.println("\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+            maze.solveMaze();
+            maze.printMaze();
+        } catch (NullPointerException npe){
+            System.out.println("Your dimensions need to be integers that are ≥ 5 but ≤ 20");
+        }
     }
 }
 
