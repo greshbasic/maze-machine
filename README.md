@@ -1,7 +1,7 @@
-- it is assumed that when the user is asked to input numbers for how tall and wide
-  they'd like the maze to be that they choose only integers and that those integers are ≥ 5 but ≤ 20
-- No known bugs.
-- to run: 
+- It is assumed that when the user is asked to input numbers for how tall and wide
+  they'd like the maze to be that they choose only integers and that those integers are ≥ 5 but ≤ 20,
+  otherwise a message will be displayed informing the user of their invalid input(s)
+- To run: 
   - compile every file: `javac <file.java>`
   - `java MyMaze`
 
