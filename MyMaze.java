@@ -1,6 +1,3 @@
-// Name: Gresham Basic
-// x500: basic009
-
 import java.util.Random;
 import java.util.Scanner;
 
@@ -266,7 +263,6 @@ public class MyMaze{
         try {
             MyMaze maze = makeMaze();
             maze.printMaze();
-            // dividing for sake of readablity for grader :)
             System.out.println("\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
             maze.solveMaze();
             maze.printMaze();
