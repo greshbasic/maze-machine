@@ -4,3 +4,5 @@
 - to run: input 'java MyMaze' in the command line. no need to compile.
 
 Notice: The only code that I had created was the MyMaze.java file, everything else was provided to me.
+
+https://user-images.githubusercontent.com/100721569/205539995-4d75ebc3-b5dc-4b78-8a39-e2f1b3df308c.png
