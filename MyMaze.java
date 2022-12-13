@@ -1,5 +1,9 @@
+// Name: Gresham Basic
+// x500: basic009
+
 import java.util.Random;
 import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
 
 public class MyMaze{
     Cell[][] maze;
@@ -175,6 +179,10 @@ public class MyMaze{
             this.maze[adding[0]][adding[1]].setVisited(true);
             int currentRow = adding[0];
             int currentCol = adding[1];
+
+            // acts like a flipbook animation
+            System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+            this.printMaze();
             
             // if location that is about to be added to queue is actually the end,
             // it breaks, else it continues and checks all possible moves.
@@ -183,6 +191,11 @@ public class MyMaze{
             if(adding[0] == endRow && adding[1] == numCols - 1){
                 break;
             } else {
+                try {
+                    TimeUnit.MILLISECONDS.sleep(500);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
                 if(currentCol - 1 >= 0 && currentCol < numCols && this.maze[currentRow][currentCol - 1].getVisited() == false && this.maze[currentRow][currentCol - 1].getRight() == false){
                     int[] addLeft = {currentRow, currentCol - 1};
                     queue.add(addLeft);
@@ -259,21 +272,21 @@ public class MyMaze{
         return choice;
     }
     public static void main(String[] args){
-        // try catch block related to an invalid input and the NPE that one would cause
         boolean valid = false;
+        // try catch block related to an invalid input and the NPE that one would cause
         while(valid == false){
             try {
                 MyMaze maze = makeMaze();
                 valid = true;
                 maze.printMaze();
+                // dividing for sake of readablity for grader :)
                 System.out.println("\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
                 maze.solveMaze();
-                maze.printMaze();
+               // maze.printMaze();
             } catch (Exception e){
                 System.out.println("INVALID - Your dimensions need to be integers that are ≥ 5 but ≤ 20");
             }
         }
     }
 }
-
 
