@@ -1,6 +1,3 @@
-// Name: Gresham Basic
-// x500: basic009
-
 import java.util.Random;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
@@ -115,9 +112,9 @@ public class MyMaze{
         }
         System.out.println(maze);
         for(int i = 0; i < numRows; i++){
-            String [] a = this.printRow(i);
-            System.out.println(a[0]);
-            System.out.println(a[1]);
+            String [] rowPair = this.printRow(i);
+            System.out.println(rowPair[0]);
+            System.out.println(rowPair[1]);
         }
     }
 
@@ -224,7 +221,7 @@ public class MyMaze{
     public String pickVisitable(int[] a, int numRows, int numCols){
         // this method is what allows for a random selection of VALID moves
         // by adding letters representing directions to an array and randomly choosing
-        // for that array after nulls are removed
+        // from that array after nulls are removed
 
         int currentRow = a[0];
         int currentCol = a[1];
@@ -255,6 +252,7 @@ public class MyMaze{
         if(elementCount == 0){
             return null;
         }
+        
         String[] noNulls = new String[elementCount];
         int tracker = 0;
         
@@ -266,20 +264,21 @@ public class MyMaze{
             }
         }
 
-        int pos = new Random().nextInt(elementCount);
-        String choice = noNulls[pos];
+        int randomIndex = new Random().nextInt(elementCount);
+        String randomChoice = noNulls[randomIndex];
 
-        return choice;
+        return randomChoice;
     }
+    
     public static void main(String[] args){
         boolean valid = false;
+        
         // try catch block related to an invalid input and the NPE that one would cause
         while(valid == false){
             try {
                 MyMaze maze = makeMaze();
                 valid = true;
                 maze.printMaze();
-                // dividing for sake of readablity for grader :)
                 System.out.println("\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
                 maze.solveMaze();
                // maze.printMaze();
